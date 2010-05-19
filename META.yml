@@ -1,12 +1,25 @@
 ---
-name: Pod-Readme
-version: 0.09
+abstract: 'Convert POD to README file'
 author:
   - 'Robert Rothenberg <rrwo at cpan.org>'
-abstract: Convert POD to README file
+build_requires:
+  Test::More: 0
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3603'
 license: perl
-resources:
-  license: http://dev.perl.org/licenses/
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Pod-Readme
+provides:
+  Pod::Readme:
+    file: lib/Pod/Readme.pm
+    version: 0.10
+recommends:
+  Test::Pod: 1.00
+  Test::Pod::Coverage: 0
+  Test::Portability::Files: 0
 requires:
   Carp: 0
   File::Copy: 0
@@ -14,17 +27,6 @@ requires:
   Pod::Text: 3.0
   Regexp::Common: 0
   perl: 5.005
-build_requires:
-  Test::More: 0
-recommends:
-  Test::Pod: 1.00
-  Test::Pod::Coverage: 0
-  Test::Portability::Files: 0
-provides:
-  Pod::Readme:
-    file: lib/Pod/Readme.pm
-    version: 0.09
-generated_by: Module::Build version 0.2805
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.10
