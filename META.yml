@@ -1,32 +1,27 @@
----
-abstract: 'Convert POD to README file'
+--- #YAML:1.0
+name:               Pod-Readme
+version:            0.11
+abstract:           Convert POD to README file
 author:
-  - 'Robert Rothenberg <rrwo at cpan.org>'
-build_requires:
-  Test::More: 0
+    - David Precious <davidp@preshweb.co.uk>
+license:            perl
+distribution_type:  module
 configure_requires:
-  Module::Build: 0.36
-generated_by: 'Module::Build version 0.3603'
-license: perl
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
-name: Pod-Readme
-provides:
-  Pod::Readme:
-    file: lib/Pod/Readme.pm
-    version: 0.10
-recommends:
-  Test::Pod: 1.00
-  Test::Pod::Coverage: 0
-  Test::Portability::Files: 0
+    ExtUtils::MakeMaker:  0
+build_requires:
+    ExtUtils::MakeMaker:  0
 requires:
-  Carp: 0
-  File::Copy: 0
-  IO::File: 0
-  Pod::Text: 3.0
-  Regexp::Common: 0
-  perl: 5.005
-resources:
-  license: http://dev.perl.org/licenses/
-version: 0.10
+    Carp:            0
+    File::Copy:      0
+    IO::File:        0
+    Pod::Text:       3.0
+    Regexp::Common:  0
+    Test::More:      0
+no_index:
+    directory:
+        - t
+        - inc
+generated_by:       ExtUtils::MakeMaker version 6.56
+meta-spec:
+    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
+    version:  1.4
