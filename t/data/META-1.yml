@@ -10,7 +10,7 @@ configure_requires:
   ExtUtils::MakeMaker: 6.59
 distribution_type: module
 dynamic_config: 1
-generated_by: 'Module::Install version 1.12'
+generated_by: 'Module::Install version 1.06'
 license: artistic2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -21,16 +21,11 @@ no_index:
     - inc
     - t
     - xt
-recommends:
-  Pod::Man: 0
-  Pod::Markdown: 0
-  Pod::Simple::LaTeX: 0
 requires:
   CPAN::Changes: 0
   CPAN::Meta: 0
   ExtUtils::MakeMaker: 6.56
   File::Slurp: 0
-  Getopt::Long::Descriptive: 0
   Hash::Util: 0
   IO: 0
   Module::CoreList: 0
@@ -38,8 +33,7 @@ requires:
   MooseX::Object::Pluggable: 0
   MooseX::Types::IO: 0
   MooseX::Types::Path::Class: 0
-  Path::Class: 0.33
-  Pod::Simple: 0
+  Path::Class: 0
   Try::Tiny: 0
   namespace::autoclean: 0
   perl: 5.10.1
