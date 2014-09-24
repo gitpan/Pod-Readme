@@ -2,6 +2,8 @@ use Test::Most;
 
 use lib 't/lib';
 use Pod::Readme::Test;
+use File::Temp qw/ tempfile /;
+use File::Compare qw/ compare /;
 
 my $class = 'Pod::Readme';
 use_ok $class;
@@ -57,6 +59,63 @@ isa_ok $prf = $class->new(
         filter_lines('=for readme plugin noop no-bool bad-attr="this"', '');
     } qr/Invalid argument key 'bad-attr' at input line \d+/;
 };
+
+{
+  my $source = 't/data/README-1.pod';
+
+  lives_ok {
+
+    my $dest   = (tempfile( UNLINK => 1))[1];
+    note $dest;
+
+    ok my $parser = Pod::Readme->new, 'new (no args)';
+    $parser->parse_from_file($source, $dest);
+
+    ok !compare($dest, 't/data/README.txt'), 'expected output';
+
+  } 'parse_from_file';
+
+  lives_ok {
+
+    my $dest   = (tempfile( UNLINK => 1))[1];
+    note $dest;
+
+    Pod::Readme->parse_from_file($source, $dest);
+
+    ok !compare($dest, 't/data/README.txt'), 'expected output';
+
+  } 'parse_from_file (class method)';
+
+  lives_ok {
+
+    open my $source_fh, '<', $source;
+    my ($dest_fh, $dest)   = tempfile( UNLINK => 1);
+    note $dest;
+
+    ok my $parser = Pod::Readme->new, 'new (no args)';
+    $parser->parse_from_filehandle($source_fh, $dest_fh);
+
+    ok !compare($dest, 't/data/README.txt'), 'expected output';
+
+    close $source_fh;
+
+  } 'parse_from_filehandle';
+
+  lives_ok {
+
+    open my $source_fh, '<', $source;
+    my ($dest_fh, $dest)   = tempfile( UNLINK => 1);
+    note $dest;
+
+    Pod::Readme->parse_from_filehandle($source_fh, $dest_fh);
+
+    ok !compare($dest, 't/data/README.txt'), 'expected output';
+
+    close $source_fh;
+
+  } 'parse_from_filehandle (class method)';
+
+}
 
 
 done_testing;

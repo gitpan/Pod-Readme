@@ -14,7 +14,7 @@ tests_recursive('t');
 resources(
     license    => 'http://www.perlfoundation.org/artistic_license_2_0',
     repository => 'git://github.com/bigpresh/Pod-Readme.git',
-    bugtracker => 'https://rt.cpan.org/Public/Dist/Display.html?Name=Pod-Readme',
+    bugtracker => 'https://github.com/bigpresh/Pod-Readme/issues',
 );
 
 configure_requires();
@@ -25,7 +25,7 @@ build_requires(
 );
 
 requires(
-    'CPAN::Changes'              => 0,
+    'CPAN::Changes'              => '0.30',
     'CPAN::Meta'                 => 0,
     'ExtUtils::MakeMaker'        => 6.56,
     'File::Slurp'                => 0,
@@ -45,17 +45,19 @@ requires(
 );
 
 recommends(
-  'Pod::Simple::LaTeX' => 0,
-  'Pod::Man'           => 0,
-  'Pod::Markdown'      => 0,
+    'Pod::Simple::LaTeX' => 0,
+    'Pod::Man'           => 0,
+    'Pod::Markdown'      => 0,
 );
 
 test_requires(
     'Exporter::Lite' => 0,
+    'File::Compare'  => 0,
+    'File::Temp'     => 0,
     'Test::Most'     => 0,
 );
 
-install_script( qw{ bin/pod2readme } );
+install_script(qw{ bin/pod2readme });
 
 install_as_cpan;
 auto_install;

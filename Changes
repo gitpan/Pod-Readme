@@ -1,6 +1,37 @@
 Revision history for Pod-Readme
 
-v1.0.0_01
+v1.0.0_02 2014-09-24
+  [Bug Fixes]
+  - Fixed minimum version of some prerequisites for tests.
+
+  [Enhancements]
+  - Added parse_from_file and parse_from_filehandle methods for
+    backwards compatability.
+
+  [Other Changes]
+  - Added more tests.
+
+  - The bugtracker URL now refers to the GitHub issues list at
+    https://github.com/bigpresh/Pod-Readme/issues
+    instead of RT.
+
+  - Added a version to all modules in the distribution, and a version
+    QA test to the repo.
+
+  [Documentation]
+  - Added missing date to Changes.
+
+  - Fixed typos in POD and README.
+
+  - Added stub POD to Pod::Readme::Filter.
+
+  - Fixed a daft typo in the Changes file.
+
+  - Documented known issue in the requires plugin.
+
+  - The README is now a POD document.
+
+v1.0.0_01 2014-09-23
   [Incompatabilities]
   - Major rewrite, using modern Perl v5.10.1.
 
