@@ -5,13 +5,12 @@ use inc::Module::Install;
 author 'Robert Rothenberg <rrwo@cpan.org>';
 name 'Pod-Readme';
 all_from 'lib/Pod/Readme.pm';
-license 'artistic2';
+license 'perl';
 
 tests_recursive('t');
 
-# tests_recursive('xt');
-
 resources(
+    homepage   => 'https://metacpan.org/pod/Pod::Readme',
     license    => 'http://www.perlfoundation.org/artistic_license_2_0',
     repository => 'git://github.com/bigpresh/Pod-Readme.git',
     bugtracker => 'https://github.com/bigpresh/Pod-Readme/issues',
@@ -20,8 +19,14 @@ resources(
 configure_requires();
 
 build_requires(
-    'Exporter::Lite' => 0,
-    'Test::Most'     => 0,
+    'Exporter'        => 0,
+    'File::Compare'   => 0,
+    'File::Temp'      => 0,
+    'Test::Deep'      => 0,
+    'Test::Exception' => 0,
+    'Test::Kit'       => '2.10',
+    'Test::More'      => 0,
+    'lib'             => 0,
 );
 
 requires(
@@ -50,14 +55,24 @@ recommends(
     'Pod::Markdown'      => 0,
 );
 
-test_requires(
-    'Exporter::Lite' => 0,
-    'File::Compare'  => 0,
-    'File::Temp'     => 0,
-    'Test::Most'     => 0,
-);
+# Note: test_requires is an alias for build_requires, so we don't need
+# to explicitly include it.
 
 install_script(qw{ bin/pod2readme });
+
+author_requires(
+    'Module::Install::AuthorRequires' => 0.02,
+    'Module::Install::AuthorTests'    => 0,
+    'Test::CheckManifest'             => 0.9,
+    'Test::Perl::Critic'              => 0,
+    'Test::Portability::Files'        => 0,
+    'Test::Pod'                       => '1.00',
+    'Test::CleanNamespaces'           => 0,
+    'Test::Pod::Coverage'             => 0,
+    'Test::MinimumVersion'            => 0,
+);
+
+recursive_author_tests('xt');
 
 install_as_cpan;
 auto_install;

@@ -1,10 +1,10 @@
 =head1 NAME
 
-Pod::Readme - generate README files from POD
+Pod::Readme - Generate a README file from POD
 
 =head1 VERSION
 
-v1.0.0_02
+v1.0.0_03
 
 =head1 SYNOPSIS
 
@@ -68,8 +68,6 @@ This distribution requires the following modules:
 
 =item * L<CPAN::Meta>
 
-=item * L<Exporter::Lite>
-
 =item * L<File::Slurp>
 
 =item * L<Getopt::Long::Descriptive>
@@ -86,7 +84,11 @@ This distribution requires the following modules:
 
 =item * L<Path::Class> (version 0.33)
 
-=item * L<Test::Most>
+=item * L<Test::Deep>
+
+=item * L<Test::Exception>
+
+=item * L<Test::Kit> (version 2.10)
 
 =item * L<Try::Tiny>
 
@@ -112,7 +114,11 @@ This distribution recommends the following modules:
 
 =item * 
 
-Fixed minimum version of some prerequisites for tests.
+The tests for the requires plugin handle non-author builds.
+
+=item * 
+
+Fix for tests on some systems.
 
 =back
 
@@ -122,27 +128,11 @@ Fixed minimum version of some prerequisites for tests.
 
 =item * 
 
-Added missing date to Changes.
+Consistent names in POD.
 
 =item * 
 
-Fixed typos in POD and README.
-
-=item * 
-
-Added stub POD to Pod::Readme::Filter.
-
-=item * 
-
-Fixed a daft typo in the Changes file.
-
-=item * 
-
-Documented known issue in the requires plugin.
-
-=item * 
-
-The README is now a POD document.
+Fixed typos in Changes file.
 
 =back
 
@@ -152,7 +142,7 @@ The README is now a POD document.
 
 =item * 
 
-Added parse_from_file and parse_from_filehandle methods for backwards compatability.
+Show path of missing META.yml file in requires plugin.
 
 =back
 
@@ -162,15 +152,23 @@ Added parse_from_file and parse_from_filehandle methods for backwards compatabil
 
 =item * 
 
-Added more tests.
+Added hooks for author tests in Makefile.PL.
 
 =item * 
 
-The bugtracker URL now refers to the GitHub issues list at https://github.com/bigpresh/Pod-Readme/issues instead of RT.
+Fixed license metadata error to make CPANTS happy, and to be consistent with license in the POD.
 
 =item * 
 
-Added a version to all modules in the distribution, and a version QA test to the repo.
+Tests use Exporter instead of Exporter::Lite.
+
+=item * 
+
+Tests use Test::Kit rather than Test::Most, and explicitly import the tests modules that they use.
+
+=item * 
+
+Removed redundant prereqs from Makefile.PL.
 
 =back
 

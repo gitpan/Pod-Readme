@@ -1,6 +1,33 @@
 Revision history for Pod-Readme
 
-v1.0.0_02 2014-09-24
+v1.0.0_03 2014-09-24 21:14 BST
+  [Bug Fixes]
+  - The tests for the requires plugin handle non-author builds.
+
+  - Fix for tests on some systems.
+
+  [Enhancements]
+  - Show path of missing META.yml file in requires plugin.
+
+  [Documentation]
+  - Consistent names in POD.
+
+  - Fixed typos in Changes file.
+
+  [Other Changes]
+  - Added hooks for author tests in Makefile.PL.
+
+  - Fixed license metadata error to make CPANTS happy, and to be
+    consistent with license in the POD.
+
+  - Tests use Exporter instead of Exporter::Lite.
+
+  - Tests use Test::Kit rather than Test::Most, and explicitly import
+    the tests modules that they use.
+
+  - Removed redundant prereqs from Makefile.PL.
+
+v1.0.0_02 2014-09-24 14:14 BST
   [Bug Fixes]
   - Fixed minimum version of some prerequisites for tests.
 
@@ -31,7 +58,7 @@ v1.0.0_02 2014-09-24
 
   - The README is now a POD document.
 
-v1.0.0_01 2014-09-23
+v1.0.0_01 2014-09-23 13:58 BST
   [Incompatabilities]
   - Major rewrite, using modern Perl v5.10.1.
 
@@ -48,8 +75,8 @@ v1.0.0_01 2014-09-23
   - Added a "requires" plugin for listing module requirements.
 
   - The pod2readme script has been rewritten to take a variety of
-    options, and can various formats, such as HTML, Markdown, POD or
-    RTF.
+    options, and can generate various formats, such as HTML, Markdown,
+    POD or RTF.
 
   [Documentation]
   - Changes rewritten to conform to CPAN::Changes::Spec.

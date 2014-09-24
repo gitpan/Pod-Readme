@@ -6,7 +6,7 @@ use CPAN::Meta;
 use Module::CoreList;
 use Path::Class;
 
-use version 0.77; our $VERSION = version->declare('v1.0.0_02');
+use version 0.77; our $VERSION = version->declare('v1.0.0_03');
 
 =head1 NAME
 
@@ -115,8 +115,12 @@ sub cmd_requires {
         }
     }
 
-    my $meta = CPAN::Meta->load_file(
-        file( $self->base_dir, $self->requires_from_file ) );
+    my $file = file( $self->base_dir, $self->requires_from_file )->stringify;
+    unless (-e $file) {
+        die "Cannot find META.yml file at '${file}";
+    }
+
+    my $meta = CPAN::Meta->load_file($file);
 
     my ( $prereqs, $perl ) = $self->_get_prereqs( $meta, 'requires' );
     if ( %{$prereqs} ) {

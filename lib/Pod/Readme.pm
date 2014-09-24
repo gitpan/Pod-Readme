@@ -2,7 +2,7 @@ package Pod::Readme;
 
 =head1 NAME
 
-Pod::Readme - generate README files from POD
+Pod::Readme - Generate a README file from POD
 
 =for readme plugin version
 
@@ -185,7 +185,7 @@ use MooseX::Types::IO 'IO';
 use MooseX::Types::Path::Class;
 use Path::Class;
 
-use version 0.77; our $VERSION = version->declare('v1.0.0_02');
+use version 0.77; our $VERSION = version->declare('v1.0.0_03');
 
 =head1 ATTRIBUTES
 
