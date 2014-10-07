@@ -1,6 +1,18 @@
 Revision history for Pod-Readme
 
-v1.0.1_01
+v1.0.1_02 2014-10-08 00:49 BST
+  [Documentation]
+  - Added missing timestamp to Changes.
+
+  - Updated README.pod.
+
+  [Other Changes]
+  - Changed how versions are defined in modules, to handle quirks of
+    namespace::autoclean.
+
+  - Changed to use Exporter::Lite.
+
+v1.0.1_01 2014-10-08 00:26 BST
   [Bug Fixes]
   - Fixed argument name for include command.
 
