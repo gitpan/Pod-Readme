@@ -2,12 +2,15 @@ package Pod::Readme::Plugin;
 
 use v5.10.1;
 
-use Moose::Role;
+use Moo::Role;
 
+use Class::Method::Modifiers qw/ fresh /;
 use Hash::Util qw/ lock_keys /;
 use Try::Tiny;
 
-use version 0.77; our $VERSION = version->declare('v1.0.0_03');
+use version 0.77; our $VERSION = version->declare('v1.0.1_01');
+
+use Pod::Readme::Types qw/ Indentation /;
 
 =head1 NAME
 
@@ -20,7 +23,7 @@ capabilities of the module.
 
 =head1 ATTRIBUTES
 
-=head2 c<verbatim_indent>
+=head2 C<verbatim_indent>
 
 The number of columns to indent a verbatim paragraph.
 
@@ -28,8 +31,8 @@ The number of columns to indent a verbatim paragraph.
 
 has verbatim_indent => (
     is      => 'ro',
-    isa     => 'Int',
-    default => 2,       # TODO: a minimum of 2
+    isa     => Indentation,
+    default => 2,
 );
 
 =head1 METHODS
@@ -129,8 +132,7 @@ sub parse_cmd_args {
         }
         else {
             $val = 1;
-            if ( $arg =~ /^no[_-](\w+(?:[-_]\w+)*)$/ ) {
-                $key = $1;
+            if ( ($key) = ( $arg =~ /^no[_-](\w+(?:[-_]\w+)*)$/ ) ) {
                 $val = 0;
             }
             else {
@@ -246,13 +248,12 @@ compatability with older POD parsers.
 =cut
 
 {
-    my $meta = __PACKAGE__->meta;
     foreach my $cmd (
         qw/ head1 head2 head3 head4
         over item begin end for encoding /
       )
     {
-        $meta->add_method(
+        fresh(
             "write_${cmd}" => sub {
                 my ( $self, $text ) = @_;
                 $text //= '';
@@ -262,7 +263,7 @@ compatability with older POD parsers.
     }
 
     foreach my $cmd (qw/ pod back cut  /) {
-        $meta->add_method(
+        fresh(
             "write_${cmd}" => sub {
                 my ($self) = @_;
                 $self->_write_cmd( '=' . $cmd );
@@ -274,12 +275,12 @@ compatability with older POD parsers.
 
 =head1 WRITING PLUGINS
 
-Writing plugins is straightforward. Plugins are L<Moose::Role> modules
+Writing plugins is straightforward. Plugins are L<Moo::Role> modules
 in the C<Pod::Readme::Plugin> namespace.  For example,
 
   package Pod::Readme::Plugin::myplugin;
 
-  use Moose::Role;
+  use Moo::Role;
 
   sub cmd_myplugin {
       my ($self, @args) = @_;
@@ -306,21 +307,31 @@ writes output using the write methods noted above.
 See some of the included plugins, such as
 L<Pod::Readme::Plugin::version> for examples.
 
-Any attributes it the plugin should be prefixed with the name of the
+Any attributes in the plugin should be prefixed with the name of the
 plugin, to avoid any conflicts with attribute and method names from
 other plugins, e.g.
 
   has 'myplugin_heading_level' => (
     is      => 'rw',
-    isa     => 'Int',
+    isa     => Int,
     default => 1,
+    lazy    => 1,
   );
+
+Attributes should be lazy to ensure that their defaults are properly
+set.
 
 Be aware that changing default values of an attribute based on
 arguments means that the next time a plugin method is run, the
 defaults will be changed.
 
+=head1 SEE ALSO
+
+Custom types in L<Pod::Readme::Types> may be useful for writing
+plugins.
+
 =cut
+
 
 use namespace::autoclean;
 

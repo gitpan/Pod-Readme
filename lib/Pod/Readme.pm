@@ -175,17 +175,18 @@ it is not standard POD.
 
 use v5.10.1;
 
-use Moose;
+use Moo;
 extends 'Pod::Readme::Filter';
 
 use Carp;
 use IO qw/ File Handle /;
 use Module::Load qw/ load /;
-use MooseX::Types::IO 'IO';
-use MooseX::Types::Path::Class;
 use Path::Class;
+use Types::Standard qw/ Maybe Str /;
 
-use version 0.77; our $VERSION = version->declare('v1.0.0_03');
+use version 0.77; our $VERSION = version->declare('v1.0.1_01');
+
+use Pod::Readme::Types qw/ File WriteIO /;
 
 =head1 ATTRIBUTES
 
@@ -205,7 +206,7 @@ Only subclasses of L<Pod::Simple> are supported.
 
 has translation_class => (
     is      => 'ro',
-    isa     => 'Maybe[Str]',
+    isa     => Maybe [Str],
     default => undef,
 );
 
@@ -216,26 +217,28 @@ The L<IO::Handle> to save the translated file to.
 =cut
 
 has translate_to_fh => (
-    is      => 'ro',
-    isa     => IO,
-    lazy    => 1,
-    coerce  => 1,
-    default => sub {
-        my ($self) = @_;
-        if ( $self->translate_to_file ) {
-            $self->translate_to_file->openw;
+    is         => 'ro',
+    isa        => WriteIO,
+    lazy => 1,
+    builder => '_build_translate_to_fh',
+    coerce     => sub { WriteIO->coerce(@_) },
+);
+
+sub _build_translate_to_fh {
+    my ($self) = @_;
+    if ( $self->translate_to_file ) {
+        $self->translate_to_file->openw;
+    }
+    else {
+        my $fh = IO::Handle->new;
+        if ( $fh->fdopen( fileno(STDOUT), 'w' ) ) {
+            return $fh;
         }
         else {
-            my $fh = IO::Handle->new;
-            if ( $fh->fdopen( fileno(STDOUT), 'w' ) ) {
-                return $fh;
-            }
-            else {
-                croak "Cannot get a filehandle for STDOUT";
-            }
+            croak "Cannot get a filehandle for STDOUT";
         }
-    },
-);
+    }
+}
 
 =head2 C<translate_to_file>
 
@@ -246,8 +249,8 @@ then it will be saved to C<STDOUT>.
 
 has translate_to_file => (
     is      => 'ro',
-    isa     => 'Path::Class::File',
-    coerce  => 1,
+    isa     => File,
+    coerce  => sub { File->coerce(@_) },
     lazy    => 1,
     builder => 'default_readme_file',
 );

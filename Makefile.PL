@@ -30,29 +30,35 @@ build_requires(
 );
 
 requires(
-    'CPAN::Changes'              => '0.30',
-    'CPAN::Meta'                 => 0,
-    'ExtUtils::MakeMaker'        => 6.56,
-    'File::Slurp'                => 0,
-    'Getopt::Long::Descriptive'  => 0,
-    'Hash::Util'                 => 0,
-    'IO'                         => 0,
-    'Module::CoreList'           => 0,
-    'Moose'                      => 0,
-    'MooseX::Object::Pluggable'  => 0,
-    'MooseX::Types::IO'          => 0,
-    'MooseX::Types::Path::Class' => 0,
-    'namespace::autoclean'       => 0,
-    'Path::Class'                => 0.33,
-    'Pod::Simple'                => 0,
-    'Try::Tiny'                  => 0,
-    'version'                    => 0.77,
+    'Carp'                      => 0,
+    'Class::Method::Modifiers'  => 0,
+    'CPAN::Changes'             => '0.30',
+    'CPAN::Meta'                => 0,
+    'ExtUtils::MakeMaker'       => 6.56,
+    'File::Slurp'               => 0,
+    'Getopt::Long::Descriptive' => 0,
+    'Hash::Util'                => 0,
+    'IO'                        => 0,
+    'Module::CoreList'          => 0,
+    'Module::Load'              => 0,
+    'Moo'                       => 0,
+    'Moo::Role'                 => 0,
+    'MooX::HandlesVia'          => 0,
+    'namespace::autoclean'      => 0,
+    'Path::Class'               => 0.33,
+    'Pod::Simple'               => 0,
+    'Scalar::Util'              => 0,
+    'Try::Tiny'                 => 0,
+    'Type::Tiny'                => 0,
+    'Types::Standard'           => 0,
+    'version'                   => 0.77,
 );
 
 recommends(
     'Pod::Simple::LaTeX' => 0,
     'Pod::Man'           => 0,
     'Pod::Markdown'      => 0,
+    'Type::Tiny::XS'     => 0,
 );
 
 # Note: test_requires is an alias for build_requires, so we don't need

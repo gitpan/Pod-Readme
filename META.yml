@@ -9,7 +9,7 @@ build_requires:
   File::Temp: 0
   Test::Deep: 0
   Test::Exception: 0
-  Test::Kit: '2.10'
+  Test::Kit: 2.10
   Test::More: 0
   lib: 0
 configure_requires:
@@ -31,22 +31,28 @@ recommends:
   Pod::Man: 0
   Pod::Markdown: 0
   Pod::Simple::LaTeX: 0
+  Type::Tiny::XS: 0
 requires:
-  CPAN::Changes: '0.30'
+  CPAN::Changes: 0.30
   CPAN::Meta: 0
+  Carp: 0
+  Class::Method::Modifiers: 0
   ExtUtils::MakeMaker: 6.56
   File::Slurp: 0
   Getopt::Long::Descriptive: 0
   Hash::Util: 0
   IO: 0
   Module::CoreList: 0
-  Moose: 0
-  MooseX::Object::Pluggable: 0
-  MooseX::Types::IO: 0
-  MooseX::Types::Path::Class: 0
+  Module::Load: 0
+  Moo: 0
+  Moo::Role: 0
+  MooX::HandlesVia: 0
   Path::Class: 0.33
   Pod::Simple: 0
+  Scalar::Util: 0
   Try::Tiny: 0
+  Type::Tiny: 0
+  Types::Standard: 0
   namespace::autoclean: 0
   perl: 5.10.1
   version: 0.77
@@ -55,4 +61,4 @@ resources:
   homepage: https://metacpan.org/pod/Pod::Readme
   license: http://www.perlfoundation.org/artistic_license_2_0
   repository: git://github.com/bigpresh/Pod-Readme.git
-version: 1.000000_003
+version: 1.000001_001

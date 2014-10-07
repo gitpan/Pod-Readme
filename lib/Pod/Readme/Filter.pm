@@ -2,18 +2,21 @@ package Pod::Readme::Filter;
 
 use v5.10.1;
 
-use Moose;
-with 'MooseX::Object::Pluggable';
+use Moo;
+use MooX::HandlesVia;
 with 'Pod::Readme::Plugin';
 
 use Carp;
 use File::Slurp qw/ read_file /;
 use IO qw/ File Handle /;
-use MooseX::Types::IO 'IO';
-use MooseX::Types::Path::Class;
+use Module::Load qw/ load /;
+use Path::Class;
 use Try::Tiny;
+use Types::Standard qw/ Bool Int RegexpRef Str /;
 
-use version 0.77; our $VERSION = version->declare('v1.0.0_03');
+use version 0.77; our $VERSION = version->declare('v1.0.1_01');
+
+use Pod::Readme::Types qw/ Dir File ReadIO WriteIO TargetName /;
 
 =head1 NAME
 
@@ -40,59 +43,61 @@ L<Pod::Readme>.
 
 has encoding => (
     is      => 'ro',
-    isa     => 'Str',
+    isa     => Str,
     default => ':utf8',
 );
 
 has base_dir => (
     is      => 'ro',
-    isa     => 'Path::Class::Dir',
-    coerce  => 1,
+    isa     => Dir,
+    coerce  => sub { Dir->coerce(@_) },
     default => '.',
 );
 
 has input_file => (
     is       => 'ro',
-    isa      => 'Path::Class::File',
+    isa      => File,
     required => 0,
-    coerce   => 1,
+    coerce   => sub { File->coerce(@_) },
 );
 
 has output_file => (
     is       => 'ro',
-    isa      => 'Path::Class::File',
+    isa      => File,
     required => 0,
-    coerce   => 1,
+    coerce   => sub { File->coerce(@_) },
 );
 
 has input_fh => (
-    is      => 'ro',
-    isa     => IO,
-    lazy    => 1,
-    coerce  => 1,
-    default => sub {
-        my ($self) = @_;
-        if ( $self->input_file ) {
-            $self->input_file->openr;
+    is         => 'ro',
+    isa        => ReadIO,
+    lazy => 1,
+    builder => '_build_input_fh',
+    coerce   => sub { ReadIO->coerce(@_) },
+);
+
+sub _build_input_fh {
+    my ($self) = @_;
+    if ( $self->input_file ) {
+        $self->input_file->openr;
+    }
+    else {
+        my $fh = IO::Handle->new;
+        if ( $fh->fdopen( fileno(STDIN), 'r' ) ) {
+            return $fh;
         }
         else {
-            my $fh = IO::Handle->new;
-            if ( $fh->fdopen( fileno(STDIN), 'r' ) ) {
-                return $fh;
-            }
-            else {
-                croak "Cannot get a filehandle for STDIN";
-            }
+            croak "Cannot get a filehandle for STDIN";
         }
-    },
-);
+    }
+}
 
 has output_fh => (
     is      => 'ro',
-    isa     => IO,
+    isa     => WriteIO,
     lazy    => 1,
-    coerce  => 1,
     builder => '_build_output_fh',
+    coerce  => sub { WriteIO->coerce(@_) },
 );
 
 sub _build_output_fh {
@@ -111,29 +116,23 @@ sub _build_output_fh {
     }
 }
 
-# TODO: target format names should be \w+
-
 has target => (
     is      => 'ro',
-    isa     => 'Str',
+    isa     => TargetName,
     default => 'readme',
 );
 
 has in_target => (
     is       => 'ro',
-    isa      => 'Bool',
-    traits   => [qw/ Bool /],
+    isa      => Bool,
     init_arg => undef,
     default  => 1,
-    handles  => {
-        cmd_start => 'set',
-        cmd_stop  => 'unset',
-    },
+    writer   => '_set_in_target',
 );
 
 has _target_regex => (
     is       => 'ro',
-    isa      => 'Regexp',
+    isa      => RegexpRef,
     init_arg => undef,
     lazy     => 1,
     default  => sub {
@@ -145,18 +144,22 @@ has _target_regex => (
 
 has mode => (
     is       => 'rw',
-    isa      => 'Str',
+    isa      => Str,
     default  => 'default',
     init_arg => undef,
 );
 
 has _line_no => (
     is      => 'ro',
-    isa     => 'Int',
-    traits  => [qw/ Counter /],
+    isa     => Int,
     default => 0,
-    handles => { _inc_line_no => 'inc', },
+    writer  => '_set_line_no',
 );
+
+sub _inc_line_no {
+    my ($self) = @_;
+    $self->_set_line_no( 1 + $self->_line_no );
+}
 
 sub write {
     my ( $self, $line ) = @_;
@@ -171,10 +174,10 @@ sub in_pod {
 
 has _for_buffer => (
     is       => 'rw',
-    isa      => 'Str',
+    isa      => Str,
     init_arg => undef,
     default  => '',
-    traits   => [qw/ String /],
+    handles_via => 'String',
     handles  => {
         _append_for_buffer => 'append',
         _clear_for_buffer  => 'clear',
@@ -183,10 +186,10 @@ has _for_buffer => (
 
 has _begin_args => (
     is       => 'rw',
-    isa      => 'Str',
+    isa      => Str,
     init_arg => undef,
     default  => '',
-    traits   => [qw/ String /],
+    handles_via => 'String',
     handles  => { _clear_begin_args => 'clear', },
 );
 
@@ -260,8 +263,7 @@ sub filter_line {
         return 1;
     }
 
-    if ( $line =~ /^=(\w+)\s/ ) {
-        my $cmd = $1;
+    if ( my ($cmd) = ( $line =~ /^=(\w+)\s/ ) ) {
         $mode = $self->mode( $cmd eq 'cut' ? 'default' : 'pod' );
 
         if ( $self->in_pod ) {
@@ -348,7 +350,7 @@ sub cmd_continue {
 sub cmd_include {
     my ( $self, @args ) = @_;
 
-    my $res = $self->parse_cmd_args( [qw/ file stype start stop /], @args );
+    my $res = $self->parse_cmd_args( [qw/ file type start stop /], @args );
 
     my $start = $res->{start};
     $start = qr/${start}/ if $start;
@@ -388,16 +390,32 @@ sub cmd_include {
 
 }
 
-around _build_plugin_app_ns => sub {
-    my ( $orig, $self ) = @_;
-    my $names = $self->$orig;
-    [ @{$names} ];
-};
+sub cmd_start {
+    my ($self) = @_;
+    $self->_set_in_target(1);
+}
+
+sub cmd_stop {
+    my ($self) = @_;
+    $self->_set_in_target(0);
+}
+
+sub _load_plugin {
+    my ($self, $plugin) = @_;
+    try {
+        my $module = "Pod::Readme::Plugin::${plugin}";
+        load $module;
+        require Role::Tiny;
+        Role::Tiny->apply_roles_to_object($self, $module );
+    } catch {
+        die "Unable to locate plugin '${plugin}'\n";
+    };
+}
 
 sub cmd_plugin {
     my ( $self, $plugin, @args ) = @_;
     my $name = "cmd_${plugin}";
-    $self->load_plugin($plugin) unless $self->can($name);
+    $self->_load_plugin($plugin) unless $self->can($name);
     if ( my $method = $self->can($name) ) {
         $self->$method(@args);
     }

@@ -1,12 +1,14 @@
 package Pod::Readme::Plugin::changes;
 
-use Moose::Role;
+use Moo::Role;
 
 use CPAN::Changes 0.30;
-use MooseX::Types::Path::Class;
 use Path::Class;
+use Types::Standard qw/ Bool Str /;
 
-use version 0.77; our $VERSION = version->declare('v1.0.0_03');
+use version 0.77; our $VERSION = version->declare('v1.0.1_01');
+
+use Pod::Readme::Types qw/ File HeadingLevel /;
 
 =head1 NAME
 
@@ -63,33 +65,38 @@ requires 'parse_cmd_args';
 
 has 'changes_file' => (
     is      => 'rw',
-    isa     => 'Path::Class::File',
-    coerce  => 1,
+    isa     => File,
+    coerce  => sub { File->coerce(@_) },
     default => 'Changes',
+    lazy => 1,
 );
 
 has 'changes_title' => (
     is      => 'rw',
-    isa     => 'Str',
+    isa     => Str,
     default => 'RECENT CHANGES',
+    lazy => 1,
 );
 
 has 'changes_verbatim' => (
     is      => 'rw',
-    isa     => 'Bool',
+    isa     => Bool,
     default => 0,
+    lazy => 1,
 );
 
 has 'changes_heading_level' => (
     is      => 'rw',
-    isa     => 'Int',    # 1..3
+    isa     => HeadingLevel,
     default => 1,
+    lazy => 1,
 );
 
 has 'changes_run' => (
     is      => 'rw',
-    isa     => 'Bool',
+    isa     => Bool,
     default => 0,
+    lazy => 1,
 );
 
 sub cmd_changes {

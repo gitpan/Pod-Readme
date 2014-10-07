@@ -1,12 +1,15 @@
 package Pod::Readme::Plugin::requires;
 
-use Moose::Role;
+use Moo::Role;
 
 use CPAN::Meta;
 use Module::CoreList;
 use Path::Class;
+use Types::Standard qw/ Bool Str /;
 
-use version 0.77; our $VERSION = version->declare('v1.0.0_03');
+use version 0.77; our $VERSION = version->declare('v1.0.1_01');
+
+use Pod::Readme::Types qw/ File HeadingLevel /;
 
 =head1 NAME
 
@@ -69,33 +72,38 @@ requires 'parse_cmd_args';
 
 has 'requires_from_file' => (
     is      => 'rw',
-    isa     => 'Path::Class::File',
-    coerce  => 1,
+    isa     => File,
+    coerce  => sub { File->coerce(@_) },
     default => 'META.yml',
+    lazy => 1,
 );
 
 has 'requires_title' => (
     is      => 'rw',
-    isa     => 'Str',
+    isa     => Str,
     default => 'REQUIREMENTS',
+    lazy => 1,
 );
 
 has 'requires_omit_core' => (
     is      => 'rw',
-    isa     => 'Bool',
+    isa     => Bool,
     default => 1,
+    lazy => 1,
 );
 
 has 'requires_heading_level' => (
     is      => 'rw',
-    isa     => 'Int',    # 1..3
+    isa     => HeadingLevel,
     default => 1,
+    lazy => 1,
 );
 
 has 'requires_run' => (
     is      => 'rw',
-    isa     => 'Bool',
+    isa     => Bool,
     default => 0,
+    lazy => 1,
 );
 
 sub cmd_requires {
