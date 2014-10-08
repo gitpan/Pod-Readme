@@ -2,7 +2,7 @@ package Pod::Readme;
 
 =head1 NAME
 
-Pod::Readme - Generate a README file from POD
+Pod::Readme - Intelligently generate a README file from POD
 
 =for readme plugin version
 
@@ -180,7 +180,7 @@ extends 'Pod::Readme::Filter';
 
 {
     use version 0.77;
-    $Pod::Readme::VERSION = version->declare('v1.0.1_03');
+    $Pod::Readme::VERSION = version->declare('v1.0.1_04');
 }
 
 use Carp;
