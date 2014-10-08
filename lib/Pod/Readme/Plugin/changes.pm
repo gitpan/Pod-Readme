@@ -4,11 +4,11 @@ use Moo::Role;
 
 {
     use version 0.77;
-    $Pod::Readme::Plugin::changes::VERSION = version->declare('v1.0.1_02');
+    $Pod::Readme::Plugin::changes::VERSION = version->declare('v1.0.1_03');
 }
 
 use CPAN::Changes 0.30;
-use Path::Class;
+use Path::Tiny;
 use Types::Standard qw/ Bool Str /;
 
 use Pod::Readme::Types qw/ File HeadingLevel /;
@@ -119,7 +119,7 @@ sub cmd_changes {
         }
     }
 
-    my $file = file( $self->base_dir, $self->changes_file );
+    my $file = path( $self->base_dir, $self->changes_file );
 
     my $changes = CPAN::Changes->load($file);
     my $latest  = ( $changes->releases )[-1];

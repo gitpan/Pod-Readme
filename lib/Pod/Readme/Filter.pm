@@ -6,7 +6,7 @@ use Moo;
 
 {
     use version 0.77;
-    $Pod::Readme::Filter::VERSION = version->declare('v1.0.1_02');
+    $Pod::Readme::Filter::VERSION = version->declare('v1.0.1_03');
 }
 
 use MooX::HandlesVia;
@@ -16,7 +16,7 @@ use Carp;
 use File::Slurp qw/ read_file /;
 use IO qw/ File Handle /;
 use Module::Load qw/ load /;
-use Path::Class;
+use Path::Tiny;
 use Try::Tiny;
 use Types::Standard qw/ Bool Int RegexpRef Str /;
 

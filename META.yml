@@ -3,7 +3,7 @@ abstract: 'Generate a README file from POD'
 author:
   - 'Robert Rothenberg <rrwo@cpan.org>'
 build_requires:
-  Exporter::Lite: 0
+  Exporter: 0
   ExtUtils::MakeMaker: 6.59
   File::Compare: 0
   File::Temp: 0
@@ -37,7 +37,7 @@ requires:
   CPAN::Meta: 0
   Carp: 0
   Class::Method::Modifiers: 0
-  Exporter::Lite: 0
+  Exporter: 0
   ExtUtils::MakeMaker: 6.56
   File::Slurp: 0
   Getopt::Long::Descriptive: 0
@@ -45,10 +45,10 @@ requires:
   IO: 0
   Module::CoreList: 0
   Module::Load: 0
-  Moo: 0
+  Moo: 1.004005
   Moo::Role: 0
   MooX::HandlesVia: 0
-  Path::Class: 0.33
+  Path::Tiny: 0.018
   Pod::Simple: 0
   Scalar::Util: 0
   Try::Tiny: 0
@@ -62,4 +62,4 @@ resources:
   homepage: https://metacpan.org/pod/Pod::Readme
   license: http://www.perlfoundation.org/artistic_license_2_0
   repository: git://github.com/bigpresh/Pod-Readme.git
-version: 1.000001_002
+version: 1.000001_003

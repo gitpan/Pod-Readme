@@ -19,9 +19,9 @@ resources(
 configure_requires();
 
 build_requires(
-    'Exporter::Lite'  => 0,
+    'Exporter'        => 0,
     'File::Compare'   => 0,
-    'File::Temp'      => 0,
+    'File::Temp'      => 0,      # included in Path::Tiny anyway
     'Test::Deep'      => 0,
     'Test::Exception' => 0,
     'Test::Kit'       => '2.10',
@@ -34,7 +34,7 @@ requires(
     'Class::Method::Modifiers'  => 0,
     'CPAN::Changes'             => '0.30',
     'CPAN::Meta'                => 0,
-    'Exporter::Lite'            => 0,
+    'Exporter'                  => 0,
     'ExtUtils::MakeMaker'       => 6.56,
     'File::Slurp'               => 0,
     'Getopt::Long::Descriptive' => 0,
@@ -42,11 +42,11 @@ requires(
     'IO'                        => 0,
     'Module::CoreList'          => 0,
     'Module::Load'              => 0,
-    'Moo'                       => 0,
+    'Moo'                       => 1.004005,
     'Moo::Role'                 => 0,
     'MooX::HandlesVia'          => 0,
     'namespace::autoclean'      => 0,
-    'Path::Class'               => 0.33,
+    'Path::Tiny'                => 0.018,
     'Pod::Simple'               => 0,
     'Scalar::Util'              => 0,
     'Try::Tiny'                 => 0,
