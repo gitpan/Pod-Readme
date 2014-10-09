@@ -4,7 +4,7 @@ Pod::Readme - Intelligently generate a README file from POD
 
 =head1 VERSION
 
-v1.0.1_04
+v1.0.1_05
 
 =head1 SYNOPSIS
 
@@ -90,8 +90,6 @@ This distribution requires the following modules:
 
 =item * L<Test::Exception>
 
-=item * L<Test::Kit> (version 2.10)
-
 =item * L<Try::Tiny>
 
 =item * L<Type::Tiny>
@@ -122,7 +120,7 @@ This distribution recommends the following modules:
 
 =item * 
 
-Added missing IO::String prereq to tests.
+Disabled use of Test::Kit, since it seems to have problems with Test::Builder 1.301001_056.
 
 =back
 
@@ -132,7 +130,7 @@ Added missing IO::String prereq to tests.
 
 =item * 
 
-Changed abstract to make the module's purpose more obvious.
+Corrected typos in POD.
 
 =back
 

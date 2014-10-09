@@ -180,7 +180,7 @@ extends 'Pod::Readme::Filter';
 
 {
     use version 0.77;
-    $Pod::Readme::VERSION = version->declare('v1.0.1_04');
+    $Pod::Readme::VERSION = version->declare('v1.0.1_05');
 }
 
 use Carp;
@@ -245,7 +245,7 @@ sub _build_translate_to_fh {
 
 =head2 C<translate_to_file>
 
-The L<Path::Tiny::File> to save the translated file to. If omitted,
+The L<Path::Tiny> filename to save the translated file to. If omitted,
 then it will be saved to C<STDOUT>.
 
 =cut
