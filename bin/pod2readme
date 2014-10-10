@@ -5,9 +5,9 @@ use v5.10.1;
 use strict;
 use warnings;
 
+use File::Copy qw/ copy /;
 use Getopt::Long::Descriptive;
 use IO::Handle;
-use Path::Class;
 use Pod::Readme;
 
 =head1 NAME
@@ -18,7 +18,7 @@ pod2readme - Intelligently generate a README file from POD
 
     pod2readme [-cfho] [long options...] input-file [output-file] [target]
 
-        Generate a README file from POD
+        Intelligently generate a README file from POD
 
         -t --target     target type (default: 'readme')
         -f --format     output format (default: 'text')
@@ -36,8 +36,8 @@ pod2readme - Intelligently generate a README file from POD
 This utility will use L<Pod::Readme> to extract a F<README> file from
 a POD document.
 
-It works by extracting the POD, and then calling the appropriate
-filter program to convert the POD to another format.
+It works by extracting and filtering the POD, and then calling the
+appropriate filter program to convert the POD to another format.
 
 =head1 OPTIONS
 
@@ -53,6 +53,10 @@ second command line argument, or default to the C<--target> plus the
 corresponding extention of the C<--format>.
 
 For all intents, the default is F<README>.
+
+If a format other than "text" is chosen, then the appropriate
+extention will be added, e.g. for "markdown", the default output file
+is F<README.md>.
 
 =head2 C<--target>
 
@@ -103,7 +107,7 @@ sub validate_format {
 my ( $opt, $usage ) = describe_options(
     '%c %o input-file [output-file] [target]',
     [],
-    ['Generate a README file from POD'],
+    ['Intelligently generate a README file from POD'],
     [],
     [ 'target|t=s' => "target type (default: 'readme')" ],
     [
@@ -160,7 +164,7 @@ my $pr = Pod::Readme->new(%args);
 $output ||= $pr->translate_to_file;
 
 if ( $opt->backup && $output && -e $output ) {
-    file($output)->copy_to( $output . '.bak' );
+    copy( $output, $output . '.bak' );
 }
 
 $pr->run();

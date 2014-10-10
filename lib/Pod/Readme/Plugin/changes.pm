@@ -4,7 +4,7 @@ use Moo::Role;
 
 {
     use version 0.77;
-    $Pod::Readme::Plugin::changes::VERSION = version->declare('v1.0.1_05');
+    $Pod::Readme::Plugin::changes::VERSION = version->declare('v1.0.1_06');
 }
 
 use CPAN::Changes 0.30;
@@ -15,7 +15,7 @@ use Pod::Readme::Types qw/ File HeadingLevel /;
 
 =head1 NAME
 
-Pod::Readme::Plugin::changes - include latest Changes in README
+Pod::Readme::Plugin::changes - Include latest Changes in README
 
 =head1 SYNOPSIS
 
@@ -71,35 +71,35 @@ has 'changes_file' => (
     isa     => File,
     coerce  => sub { File->coerce(@_) },
     default => 'Changes',
-    lazy => 1,
+    lazy    => 1,
 );
 
 has 'changes_title' => (
     is      => 'rw',
     isa     => Str,
     default => 'RECENT CHANGES',
-    lazy => 1,
+    lazy    => 1,
 );
 
 has 'changes_verbatim' => (
     is      => 'rw',
     isa     => Bool,
     default => 0,
-    lazy => 1,
+    lazy    => 1,
 );
 
 has 'changes_heading_level' => (
     is      => 'rw',
     isa     => HeadingLevel,
     default => 1,
-    lazy => 1,
+    lazy    => 1,
 );
 
 has 'changes_run' => (
     is      => 'rw',
     isa     => Bool,
     default => 0,
-    lazy => 1,
+    lazy    => 1,
 );
 
 sub cmd_changes {

@@ -1,5 +1,23 @@
 Revision history for Pod-Readme
 
+v1.0.1_06 2014-10-10
+  [Documentation]
+  - More documentation tweaks.
+
+  - Changed pod2readme usage text to match abstract.
+
+  [Bug Fixes]
+  - Added minimum Perl version to Makefile.PL.
+
+  - Removed use of Path::Class in pod2readme utility.
+
+  [Other Changes]
+  - Added rudimentary tests for pod2readme script.
+
+  [Enhancements]
+  - The requires plugin uses minimum module versions to check if a
+    module is in the core-list.
+
 v1.0.1_05 2014-10-09 19:36 BST
   [Documentation]
   - Corrected typos in POD.

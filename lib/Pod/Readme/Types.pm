@@ -2,12 +2,14 @@ package Pod::Readme::Types;
 
 use v5.10.1;
 
+use feature 'state';
+
 use strict;
 use warnings;
 
 {
     use version 0.77;
-    $Pod::Readme::Types::VERSION = version->declare('v1.0.1_05');
+    $Pod::Readme::Types::VERSION = version->declare('v1.0.1_06');
 }
 
 use Exporter qw/ import /;
@@ -22,7 +24,7 @@ our @EXPORT_OK =
 
 =head1 NAME
 
-Pod::Readme::Types - types used by Pod::Readme
+Pod::Readme::Types - Types used by Pod::Readme
 
 =head1 SYNOPSIS
 

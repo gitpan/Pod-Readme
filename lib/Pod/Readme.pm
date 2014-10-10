@@ -180,7 +180,7 @@ extends 'Pod::Readme::Filter';
 
 {
     use version 0.77;
-    $Pod::Readme::VERSION = version->declare('v1.0.1_05');
+    $Pod::Readme::VERSION = version->declare('v1.0.1_06');
 }
 
 use Carp;
@@ -220,11 +220,11 @@ The L<IO::Handle> to save the translated file to.
 =cut
 
 has translate_to_fh => (
-    is         => 'ro',
-    isa        => WriteIO,
-    lazy => 1,
+    is      => 'ro',
+    isa     => WriteIO,
+    lazy    => 1,
     builder => '_build_translate_to_fh',
-    coerce     => sub { WriteIO->coerce(@_) },
+    coerce  => sub { WriteIO->coerce(@_) },
 );
 
 sub _build_translate_to_fh {

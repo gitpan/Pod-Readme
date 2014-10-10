@@ -4,7 +4,7 @@ use Moo::Role;
 
 {
     use version 0.77;
-    $Pod::Readme::Plugin::version::VERSION = version->declare('v1.0.1_05');
+    $Pod::Readme::Plugin::version::VERSION = version->declare('v1.0.1_06');
 }
 
 use ExtUtils::MakeMaker;
@@ -14,7 +14,7 @@ use Pod::Readme::Types qw/ File HeadingLevel /;
 
 =head1 NAME
 
-Pod::Readme::Plugin::version - include version in README
+Pod::Readme::Plugin::version - Include version in README
 
 =head1 SYNOPSIS
 
@@ -60,21 +60,21 @@ has 'version_title' => (
     is      => 'rw',
     isa     => Str,
     default => 'VERSION',
-    lazy => 1,
+    lazy    => 1,
 );
 
 has 'version_heading_level' => (
     is      => 'rw',
     isa     => HeadingLevel,
     default => 1,
-    lazy => 1,
+    lazy    => 1,
 );
 
 has 'version_run' => (
     is      => 'rw',
     isa     => Bool,
     default => 0,
-    lazy => 1,
+    lazy    => 1,
 );
 
 sub cmd_version {
