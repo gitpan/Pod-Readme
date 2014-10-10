@@ -6,7 +6,7 @@ use Moo::Role;
 
 {
     use version 0.77;
-    $Pod::Readme::Plugin::VERSION = version->declare('v1.0.1_06');
+    $Pod::Readme::Plugin::VERSION = version->declare('v1.0.1_07');
 }
 
 use Class::Method::Modifiers qw/ fresh /;
@@ -90,6 +90,13 @@ when writing plugins, e.g.
     default => 'Changes',
     lazy => 1,
   );
+
+  # We add this file to the list of dependencies
+
+  around 'depends_on' => sub {
+    my ($orig, $self) = @_;
+    return ($self->myplugin_file, $self->$orig);
+  };
 
 =head1 ATTRIBUTES
 

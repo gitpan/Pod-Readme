@@ -4,7 +4,7 @@ use Moo::Role;
 
 {
     use version 0.77;
-    $Pod::Readme::Plugin::requires::VERSION = version->declare('v1.0.1_06');
+    $Pod::Readme::Plugin::requires::VERSION = version->declare('v1.0.1_07');
 }
 
 use CPAN::Meta;
@@ -26,6 +26,9 @@ Pod::Readme::Plugin::requires - Include requirements in README
 
 This is a plugin for L<Pod::Readme> that includes module requirements
 from the F<META.yml> file.
+
+Because this depends on the F<META.yml> file, the F<README> should be
+generated after that file has been updated.
 
 =head1 ARGUMENTS
 
@@ -108,6 +111,11 @@ has 'requires_run' => (
     default => 0,
     lazy    => 1,
 );
+
+around 'depends_on' => sub {
+    my ($orig, $self) = @_;
+    return ($self->requires_from_file, $self->$orig);
+};
 
 sub cmd_requires {
     my ( $self, @args ) = @_;

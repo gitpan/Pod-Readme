@@ -4,7 +4,7 @@ use Moo::Role;
 
 {
     use version 0.77;
-    $Pod::Readme::Plugin::changes::VERSION = version->declare('v1.0.1_06');
+    $Pod::Readme::Plugin::changes::VERSION = version->declare('v1.0.1_07');
 }
 
 use CPAN::Changes 0.30;
@@ -101,6 +101,11 @@ has 'changes_run' => (
     default => 0,
     lazy    => 1,
 );
+
+around 'depends_on' => sub {
+    my ($orig, $self) = @_;
+    return ($self->changes_file, $self->$orig);
+};
 
 sub cmd_changes {
     my ( $self, @args ) = @_;

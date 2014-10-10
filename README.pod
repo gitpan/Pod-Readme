@@ -4,7 +4,7 @@ Pod::Readme - Intelligently generate a README file from POD
 
 =head1 VERSION
 
-v1.0.1_06
+v1.0.1_07
 
 =head1 SYNOPSIS
 
@@ -88,8 +88,6 @@ This distribution requires the following modules:
 
 =item * L<Role::Tiny>
 
-=item * L<Test::Command>
-
 =item * L<Test::Deep>
 
 =item * L<Test::Exception>
@@ -118,20 +116,6 @@ This distribution recommends the following modules:
 
 =head1 RECENT CHANGES
 
-=head2 Bug Fixes
-
-=over 4
-
-=item * 
-
-Added minimum Perl version to Makefile.PL.
-
-=item * 
-
-Removed use of Path::Class in pod2readme utility.
-
-=back
-
 =head2 Documentation
 
 =over 4
@@ -139,10 +123,6 @@ Removed use of Path::Class in pod2readme utility.
 =item * 
 
 More documentation tweaks.
-
-=item * 
-
-Changed pod2readme usage text to match abstract.
 
 =back
 
@@ -152,7 +132,19 @@ Changed pod2readme usage text to match abstract.
 
 =item * 
 
-The requires plugin uses minimum module versions to check if a module is in the core-list.
+Added a depends_on method that returns a list of files that the README depends on.
+
+=item * 
+
+Added dependencies_updated method to check if dependencies have been updated.
+
+=item * 
+
+The README is only updated if dependencies have been updated.
+
+=item * 
+
+Added a --force option to pod2readme to force updates.
 
 =back
 
@@ -162,7 +154,7 @@ The requires plugin uses minimum module versions to check if a module is in the 
 
 =item * 
 
-Added rudimentary tests for pod2readme script.
+Moved pod2readme tests to xt directory for author tests, due to inconsistent behaviour on different platforms.
 
 =back
 

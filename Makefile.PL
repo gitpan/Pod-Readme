@@ -23,14 +23,14 @@ configure_requires();
 build_requires(
     'Exporter'        => 0,
     'File::Compare'   => 0,
-    'File::Temp'      => 0,      # included in Path::Tiny anyway
+    'File::Temp'      => 0,    # included in Path::Tiny anyway
     'IO::String'      => 0,
-    'Test::Command'   => 0,
     'Test::Deep'      => 0,
     'Test::Exception' => 0,
+
     # 'Test::Kit'       => '2.10', # Buggy with Test::Builder 1.301001_056
-    'Test::More'      => 0,
-    'lib'             => 0,
+    'Test::More' => 0,
+    'lib'        => 0,
 );
 
 requires(
@@ -45,6 +45,7 @@ requires(
     'Getopt::Long::Descriptive' => 0,
     'Hash::Util'                => 0,
     'IO'                        => 0,
+    'List::Util'                => 1.33,
     'Module::CoreList'          => 0,
     'Module::Load'              => 0,
     'Moo'                       => 1.004005,
@@ -76,13 +77,16 @@ install_script(qw{ bin/pod2readme });
 author_requires(
     'Module::Install::AuthorRequires' => 0.02,
     'Module::Install::AuthorTests'    => 0,
+    'Test::CPAN::Meta'                => 0,
     'Test::CheckManifest'             => 0.9,
-    'Test::Perl::Critic'              => 0,
-    'Test::Portability::Files'        => 0,
-    'Test::Pod'                       => '1.00',
     'Test::CleanNamespaces'           => 0,
-    'Test::Pod::Coverage'             => 0,
+    'Test::Command'                   => 0,
+    'Test::ConsistentVersion'         => 0,
     'Test::MinimumVersion'            => 0,
+    'Test::Perl::Critic'              => 0,
+    'Test::Pod'                       => '1.00',
+    'Test::Pod::Coverage'             => 0,
+    'Test::Portability::Files'        => 0,
 );
 
 recursive_author_tests('xt');

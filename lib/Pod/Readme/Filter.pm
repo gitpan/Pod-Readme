@@ -6,7 +6,7 @@ use Moo;
 
 {
     use version 0.77;
-    $Pod::Readme::Filter::VERSION = version->declare('v1.0.1_06');
+    $Pod::Readme::Filter::VERSION = version->declare('v1.0.1_07');
 }
 
 use MooX::HandlesVia;
@@ -163,6 +163,13 @@ has _line_no => (
 sub _inc_line_no {
     my ($self) = @_;
     $self->_set_line_no( 1 + $self->_line_no );
+}
+
+sub depends_on {
+    my ($self) = @_;
+    my @files;
+    push @files, $self->input_file if $self->input_file;
+    return @files;
 }
 
 sub write {
