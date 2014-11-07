@@ -35,7 +35,7 @@ build_requires(
 
 requires(
     'Carp'                      => 0,
-    'Class::Method::Modifiers'  => 0,
+    'Class::Method::Modifiers'  => '2.00',
     'CPAN::Changes'             => '0.30',
     'CPAN::Meta'                => 0,
     'Exporter'                  => 0,
@@ -68,9 +68,6 @@ recommends(
     'Pod::Markdown'      => 0,
     'Type::Tiny::XS'     => 0,
 );
-
-# Note: test_requires is an alias for build_requires, so we don't need
-# to explicitly include it.
 
 install_script(qw{ bin/pod2readme });
 

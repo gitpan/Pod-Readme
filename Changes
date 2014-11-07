@@ -1,5 +1,8 @@
 Revision history for Pod-Readme
 
+v1.0.3 2014-11-07 18:58 GMT
+  - Fixed bug with minimum version of Class::Method::Modifiers.
+
 v1.0.2 2014-10-13 22:18 BST
   - No changes since v1.0.1_08, just a version bump for a release.
 
