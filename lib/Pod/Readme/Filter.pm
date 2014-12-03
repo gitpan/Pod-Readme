@@ -6,7 +6,7 @@ use Moo;
 
 {
     use version 0.77;
-    $Pod::Readme::Filter::VERSION = version->declare('v1.0.3');
+    $Pod::Readme::Filter::VERSION = version->declare('v1.1.0');
 }
 
 use MooX::HandlesVia;
@@ -20,7 +20,7 @@ use Path::Tiny;
 use Try::Tiny;
 use Types::Standard qw/ Bool Int RegexpRef Str /;
 
-use Pod::Readme::Types qw/ Dir File ReadIO WriteIO TargetName /;
+use Pod::Readme::Types qw/ Dir File ReadIO WriteIO TargetName DistZilla /;
 
 =head1 NAME
 
@@ -202,6 +202,11 @@ has _begin_args => (
     default     => '',
     handles_via => 'String',
     handles     => { _clear_begin_args => 'clear', },
+);
+
+has zilla => (
+    is  => 'ro',
+    isa => DistZilla,
 );
 
 sub process_for {

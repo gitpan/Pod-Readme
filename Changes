@@ -1,5 +1,16 @@
 Revision history for Pod-Readme
 
+v1.1.0 2014-12-03 19:08 GMT
+  [Documentation]
+  - Fixed typos in POD for requires plugin.
+
+  [Enhancements]
+  - Pod::Readme::Filter has a zilla attribute for Dist::Zilla objects.
+
+  - The requires plugin will use metadata from the Dist::Zilla object
+    if it is set, rather than looking for a META.yml file (which will
+    not exist, if this is used in a Dist::Zilla plugin).
+
 v1.0.3 2014-11-07 18:58 GMT
   - Fixed bug with minimum version of Class::Method::Modifiers.
 

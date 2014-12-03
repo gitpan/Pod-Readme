@@ -182,7 +182,7 @@ extends 'Pod::Readme::Filter';
 
 {
     use version 0.77;
-    $Pod::Readme::VERSION = version->declare('v1.0.3');
+    $Pod::Readme::VERSION = version->declare('v1.1.0');
 }
 
 use Carp;
@@ -297,6 +297,15 @@ has 'force' => (
     isa     => Bool,
     default => 0,
 );
+
+=head2 C<zilla>
+
+For use with L<Dist::Zilla> plugins.
+
+This allows plugins which normally depend on files in the distribution
+to use metadata from here instead.
+
+=cut
 
 =head1 METHODS
 
