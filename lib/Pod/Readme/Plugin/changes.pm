@@ -4,7 +4,7 @@ use Moo::Role;
 
 {
     use version 0.77;
-    $Pod::Readme::Plugin::changes::VERSION = version->declare('v1.1.1');
+    $Pod::Readme::Plugin::changes::VERSION = version->declare('v1.1.2');
 }
 
 use CPAN::Changes 0.30;
@@ -128,7 +128,7 @@ sub cmd_changes {
 
     my %opts;
     if ($self->zilla) {
-      $opts{next_token} = qr/{{\$NEXT}}/;
+      $opts{next_token} = qr/\{\{\$NEXT}}/;
     }
 
     my $changes = CPAN::Changes->load($file, %opts);
